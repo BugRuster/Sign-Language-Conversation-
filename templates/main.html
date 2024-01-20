@@ -70,41 +70,11 @@
                   }
               </style>
                 <div class="main-button">
-                  <div class="scroll-to-section1"><a href="#" id="discoverLink">MADHYAM VOICEOVER</a></div>
+                  <div class="scroll-to-section1"><a href="{{url_for('voiceover')}}" id="discoverLink">MADHYAM VOICEOVER</a></div>
               </div>
-              <script>
-                  document.addEventListener('DOMContentLoaded', function() {
-                      // Get the link element
-                      var discoverLink = document.getElementById('discoverLink');
-                  
-                      // Add a click event listener
-                      discoverLink.addEventListener('click', function(event) {
-                          // Prevent the default behavior of the link
-                          event.preventDefault();
-                          
-                          // Redirect to the new HTML file
-                          window.location.href = 'voiceover.html';
-                      });
-                  });
-              </script>
               <div class="main-button">
-                <div class="scroll-to-section2"><a href="#" id="discoverLink1">MADHYAM IMAGE GENERATOR</a></div>
+                <div class="scroll-to-section2"><a href="{{url_for('imggenerator')}}" id="discoverLink1">MADHYAM IMAGE GENERATOR</a></div>
             </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Get the link element
-                    var discoverLink = document.getElementById('discoverLink1');
-                
-                    // Add a click event listener
-                    discoverLink.addEventListener('click', function(event) {
-                        // Prevent the default behavior of the link
-                        event.preventDefault();
-                        
-                        // Redirect to the new HTML file
-                        window.location.href = 'imggenerator.html';
-                    });
-                });
-            </script>
              
           
           </div>

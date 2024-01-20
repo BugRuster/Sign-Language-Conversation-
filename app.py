@@ -62,6 +62,16 @@ def about():
 def chat():
     return render_template('chatbot.html')
 
+@app.route('/voiceover')
+def voiceover():
+    return render_template('voiceover.html')
+
+
+@app.route('/imggenerator')
+def imggenerator():
+    return render_template('imggenerator.html')
+
+
 @app.route('/land', methods=['POST', 'GET'])
 def landing():
     return render_template('landing.html')
