@@ -307,24 +307,24 @@ if __name__ == "__main__":
 
     # print("-" * 20, "RESULTS", "-" * 20)
 
-    # model_predictions, model_labels = evaluate_model(model, validation_dataset)
+    model_predictions, model_labels = evaluate_model(model, validation_dataset)
 
-    # classify_lite = load_model()
+    classify_lite = load_model()
 
-    # tflite_predictions, tflite_labels = evaluate_tflite(
-    #     classify_lite, validation_dataset
-    # )
+    tflite_predictions, tflite_labels = evaluate_tflite(
+        classify_lite, validation_dataset
+    )
 
-    # results: list[dict[str, str]] = []
-    # for model_label, model_prediction, tflite_prediction in zip(
-    #     model_labels, model_predictions, tflite_predictions
-    # ):
-    #     results.append(
-    #         {
-    #             "true": class_names[model_label],
-    #             "model_pred": class_names[model_prediction],
-    #             "tflite_pred": class_names[tflite_prediction],
-    #         }
-    #     )
+    results: list[dict[str, str]] = []
+    for model_label, model_prediction, tflite_prediction in zip(
+        model_labels, model_predictions, tflite_predictions
+    ):
+        results.append(
+            {
+                "true": class_names[model_label],
+                "model_pred": class_names[model_prediction],
+                "tflite_pred": class_names[tflite_prediction],
+            }
+        )
 
-    # # print(results)
+    print(results)

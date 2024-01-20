@@ -13,11 +13,12 @@ from webcam_detect import sign_detection
 
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(app)
 
 
 
-
+    
 @socketio.on('image')
 def image(data_image):
     
@@ -62,4 +63,5 @@ def landing():
 
 
 if __name__ == '__main__':
-    socketio.run(app, port = '5000', debug=True)
+    socketio.run(app, port=8080,host='127.0.0.1', debug=True)
+
