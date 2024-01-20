@@ -56,9 +56,13 @@ def detect():
 
 @app.route('/about', methods=['POST', 'GET'])
 def about():
-    return render_template('about.html')
+    return render_template('team.html')
 
-@app.route('/vts', methods=['POST', 'GET'])
+@app.route('/chatbot')
+def chat():
+    return render_template('chatbot.html')
+
+@app.route('/land', methods=['POST', 'GET'])
 def landing():
     return render_template('landing.html')
 

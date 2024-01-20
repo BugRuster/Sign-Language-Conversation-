@@ -14,7 +14,7 @@ function startAssistant() {
                     // displayImage(data.value[i]);
                     setTimeout(() => {
                         displayImage(data.value[i]);
-                    }, i * 300);
+                    }, i * 800);
 
                 }
 

@@ -6,13 +6,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>MADHYAM.COM</title> 
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-grad-school.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/lightbox.css') }}">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css">
   </head>
-<body>+
+<body>
   <header class="main-header clearfix" role="header">
     <div class="logo">
       <a href="#"><em>MADHYAM</em>.COM</a>
@@ -23,90 +23,28 @@
         <li><a href="#section1">Home</a></li>
         <li class="has-submenu"><a href="#section2">About Us</a>
           <ul class="sub-menu">
-            <li><a href="team.html" target="_blank">Who we are?</a></li>
+            <li><a href="#section2">Who we are?</a></li>
             <li><a href="#section3">What we do?</a></li>
             <li><a href="#section3">How it works?</a></li>
           </ul>
         </li>
-        <li><a href="#section4" id="contactLink">Contact</a></li>
-<!-- Add this script after the inclusion of Bootstrap and other scripts -->
-<script>
-  document.getElementById('contactLink').addEventListener('click', function() {
-    // Open a new HTML file or navigate to a different page when the contact link is clicked
-    window.location.href = 'contact/contact1.html';
-  });
-</script>
-        <li><a href="#section6" id="loginLink">Login</a></li>
-        <script>
-          document.getElementById('loginLink').addEventListener('click', function() {
-            // Open a new HTML file or navigate to a different page when the login link is clicked
-            window.location.href = 'login-form-20/login.html';
-          });
-        </script>
-        
-        <li><a href="#section6" id="registerLink">Register</a></li>
-        <!-- Add this script after the previous script -->
-<script>
-  document.getElementById('registerLink').addEventListener('click', function() {
-    // Open a new HTML file or navigate to a different page when the register link is clicked
-    window.location.href = 'registration/register.html';
-  });
-</script>
+        <li><a href="#section4">Contact</a></li>
+        <li><a href="#section6">Login</a></li>
+        <li><a href="#section6">Register</a></li>
       </ul>
     </nav>
   </header> 
   <section class="section main-banner" id="top" data-section="section1">
       <video autoplay muted loop id="bg-video">
-        <source src="{{ url_for('static', filename='assets/images/2.mp4') }}" type="video/mp4" />
+          <source src="assets/images/2.mp4" type="video/mp4" />
       </video>
       <div class="video-overlay header-text">
           <div class="caption">
               <h6>Way To Express Yourself</h6>
               <h2><em>आपका</em> माध्यम</h2>
               <div class="main-button">
-                <style>
-                  .main-button {
-                      margin-bottom: 20px; 
-                  }
-              </style>
-                <div class="main-button">
-                  <div class="scroll-to-section1"><a href="#" id="discoverLink">MADHYAM VOICEOVER</a></div>
+                  <div class="scroll-to-section"><a href="#section2">Discover more</a></div>
               </div>
-              <script>
-                  document.addEventListener('DOMContentLoaded', function() {
-                      // Get the link element
-                      var discoverLink = document.getElementById('discoverLink');
-                  
-                      // Add a click event listener
-                      discoverLink.addEventListener('click', function(event) {
-                          // Prevent the default behavior of the link
-                          event.preventDefault();
-                          
-                          // Redirect to the new HTML file
-                          window.location.href = 'voiceover.html';
-                      });
-                  });
-              </script>
-              <div class="main-button">
-                <div class="scroll-to-section2"><a href="#" id="discoverLink1">MADHYAM IMAGE GENERATOR</a></div>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Get the link element
-                    var discoverLink = document.getElementById('discoverLink1');
-                
-                    // Add a click event listener
-                    discoverLink.addEventListener('click', function(event) {
-                        // Prevent the default behavior of the link
-                        event.preventDefault();
-                        
-                        // Redirect to the new HTML file
-                        window.location.href = 'imggenerator.html';
-                    });
-                });
-            </script>
-             
-          
           </div>
       </div>
   </section>
@@ -121,7 +59,7 @@
               </div>
               <div class="content-hide">
                 <p>Convert sign language to audio descriptions by describing the gestures, expressions, and actions used Capture the essence of the message conveyed through sign language in a concise and clear manner for individuals relying on audio.</p>
-                <div class="scroll-to-section"><a href="{{url_for('index')}}">Read More</a></div>
+                <div class="scroll-to-section"><a href="#section2">More Info.</a></div>
             </div>
             </div>
           </div>
@@ -134,7 +72,7 @@
               </div>
               <div class="content-hide">
                <p>Converting sign language (Bhasha) to audio involves describing the visual gestures, expressions, and actions in a way that conveys the message effectively for individuals relying on audio information.</p>
-                <div class="scroll-to-section"><a href="{{url_for('detect')}}">Read More</a></div>
+                <div class="scroll-to-section"><a href="#section3">Details</a></div>
             </div>
             </div>
           </div>
@@ -147,10 +85,15 @@
               </div>
               <div class="content-hide">
                 <p>Creating a chatbot translation involves designing a program that can interpret and respond to user input in one language while generating output in another. The chatbot uses natural language processing algorithms to understand and generate text, facilitating seamless communication between users speaking different languages.</p>
-                <div class="scroll-to-section"><a href="{{url_for('chat')}}" id="readMoreLink">Read more</a></div>
+                <div class="scroll-to-section"><a href="#" id="readMoreLink">Read more</a></div>
             </div>
             
-
+            <script>
+            document.getElementById('readMoreLink').addEventListener('click', function() {
+                // Open a new HTML file or navigate to a different page
+                window.location.href = 'chatbot.html';
+            });
+            </script>
             </div>
           </div>
         </div>
@@ -176,7 +119,7 @@
               <article id='tabs-1'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{{ url_for('static', filename='assets/images/choose-us-image-01.png') }}" alt="">
+                    <img src="assets/images/choose-us-image-01.png" alt="">
                   </div>
                   <div class="col-md-6">
                     <h4>QUALITY TRANSALATION</h4>
@@ -187,7 +130,7 @@
               <article id='tabs-2'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{{ url_for('static', filename='assets/images/choose-us-image-02.png') }}" alt="">
+                    <img src="assets/images/choose-us-image-02.png" alt="">
                   </div>
                   <div class="col-md-6">
                     <h4>TOP MANAGEMENT</h4>
@@ -199,7 +142,7 @@
               <article id='tabs-3'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="{{ url_for('static', filename='assets/images/choose-us-image-03.png') }}" alt="">
+                    <img src="assets/images/choose-us-image-03.png" alt="">
                   </div>
                   <div class="col-md-6">
                     <h4>COST EFFCTIVE WITH DIFFERENT USP</h4>
@@ -213,15 +156,16 @@
       </div>
     </div>
   </section>
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/isotope.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/lightbox.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/tabs.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/video.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/slick-slider.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+    <script src="assets/js/tabs.js"></script>
+    <script src="assets/js/video.js"></script>
+    <script src="assets/js/slick-slider.js"></script>
+    <script src="assets/js/custom.js"></script>
     <script>
     
         $('.nav li:first').addClass('active');
