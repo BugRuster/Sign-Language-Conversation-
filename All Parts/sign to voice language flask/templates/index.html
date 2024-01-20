@@ -1,0 +1,347 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+    <link rel="icon" href="static/love-hand-l.png">
+
+    <title>EchoSign - Detection</title>
+
+
+   
+    
+</head>
+    <body>
+
+        <script>
+            $(window).scroll(function() {     
+               var scroll = $(window).scrollTop();
+               if (scroll > 30) {
+                   $("#header").addClass("active");
+               }
+               else {
+                   $("#header").removeClass("active");
+               }
+           });
+
+        
+        //Tips
+        var allTips = ["You can change the Text-to-Speech voice, rate and other settings by clicking on the gear icon on the console.",
+        "To get English Alphabet to ASL <a href='/#English2ASL' target='_blank' >click here</a>.",
+        "Place your hand gesture in the white box for detection.", "To know more about American Sign Language <a href='/#AboutASL' target='_blank' >click here</a>.",
+        "Need Privacy? Turn off the camera access by clicking on the red button on the console.", "You can see what the backend in OpenCV is seeing by clicking on the green button.",
+        "Make sure you are in a well lit environment.", "Hover over the settings parameters to know more about them."]
+            
+        document.addEventListener("DOMContentLoaded", function(){
+            
+            setInterval(newTip, 10000);
+
+            });
+
+
+            async function newTip(){
+            var tip_element = document.getElementById("tips");
+            var currentTip = allTips[Math.floor(Math.random()*allTips.length)];
+            tip_element.classList.add('fade-out');
+            await sleep(900);
+            tip_element.innerHTML = currentTip;
+            tip_element.classList.remove('fade-out');
+            tip_element.classList.add('fade-in');
+            }
+
+            const sleep = async (milliseconds) => {
+                await new Promise(resolve => {
+                    return setTimeout(resolve, milliseconds)
+                });
+            };
+
+           
+
+       </script>
+   
+
+        <div id="container">
+            
+                
+
+                <video autoplay="true" id="videoElement" style="display:none;"></video>
+
+                <div id="header-bg"></div>
+                <div class="header-spacing"></div>
+            
+            
+                <br>
+                <!--From camera directly-->
+                <div class="row" style="width:100%;text-align:center;margin:0 auto;">
+                    <div class="col-lg">
+                        <div class="card camera-part">
+                            <!--In canvas-->
+                            <canvas id="canvasOutput" style="transform:scaleX(-1);"></canvas>
+                            <div class="prediction">
+                                <div class="row">
+                                    <div class="col">
+                                        <p id="live-letter"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p id="confidence"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="card text-window">
+                            <div class="range-slider-container" id="settings">
+                                <h3>Detection</h3>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="car" class="form-label" title="Takes consecutive detection of same character as one. Recommended : 5 ">Consecutive Acceptance Rate : </label>
+                                        <span id="car-value">5</span>
+                                    </div>
+                                    <div class="col-md">
+                                    <input type="range" class="form-range" min="3" max="7" value="5" step="1" id="car" title="Takes consecutive detection of same character as one. Recommended : 5 "/>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="threshold" class="form-label" title="The detection confidence in percentage after which a character is displayed on the console. Recommended : 90% ">Acceptance Threshold : </label>
+                                        <span id="threshold-value">90%</span>
+                                    </div>
+                                    <div class="col-md">
+                                    <input type="range" class="form-range" min="88" max="100" value="90" step="1" id="threshold" title="The detection confidence in percentage after which a character is displayed on the console. Recommended : 90% "/>
+
+                                    </div>
+                                </div>
+                                <br>
+                                
+
+                                <h3>Text to Speech</h3>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="voiceSelect" class="form-label" title="Select your desired speaker voice.">Speech Voices</label>
+                                    </div>
+                                    <div class="col-md">
+                                        <select id="voiceSelect" class="form-select"  title="Select your desired speaker voice."></select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="rate" class="form-label" title="How fast the speaker talks. Recommended : 1 ">Rate of Speech : </label>
+                                        <span id="rate-value">1</span>
+
+                                    </div>
+                                    <div class="col-md">
+                                    <input type="range" class="form-range" min="0" max="2" value="1" step="0.1" id="rate" title="How fast the speaker talks. Recommended : 1 "/>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            
+                            <div class="title-bar">
+                                <i class="fa-solid fa-gear fa-lg"  onclick="Settings(this)" title="Click for settings"></i>
+                                <p class="align-middle">Console</p>
+
+                                <div class="button-yellow"></div>
+
+                                <div class="button-green" onclick="ShowBackend()" title="Click to see Backend Preview"></div>
+                                <div class="button-red" onclick="RecordButton()" title="Click to turn off camera"></div>
+                               
+            
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+                            <textarea class="interpreted-text" id="interpreted-text" rows=10 placeholder="Interpreted Text Shows Up Here"></textarea>
+                            
+                        </div>
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col">
+                                    <button id="speak" type="button" class="red-button"> 
+                                        <i class="fa-solid fa-play"></i>&nbsp;&nbsp;Play
+                                    </button>
+                                    <button id="stop-audio" type="button" class="black-button stop-audio"> 
+                                        &nbsp;<i class="fa-solid fa-square"></i>&nbsp;
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="black-button" id="delete" onclick="DeleteText()"> 
+                                        &nbsp;<i class="fa-solid fa-delete-left fa-xl"></i>&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="mx-auto preview-container" id="preview-container">
+                    <h2>Backend Preview </h2>
+                    <img id="preview" class="img-fluid">
+                    <br>
+                </div>
+                
+                <br>
+                
+                <div class="tip-container">
+                    <h1>Tips</h1>
+                    <p id="tips">Place your hand gesture in the white box for detection.</p>
+                </div>
+
+               
+
+
+                <div class="espace"></div>
+                <hr>
+
+                <div class="footer">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#English2ASL">English to ASL</a></li>
+                        <li><a href="/#AboutASL">About ASL</a></li>
+                        <li><a href="/about">About us</a></li>
+
+                    </ul>
+
+                </div>
+                <hr>
+              
+
+            </div>
+
+    </body>
+
+
+    <script src="{{url_for('static', filename='connection.js')}}" type="text/javascript"></script>
+
+    <script>
+     
+        //Settings toggle
+        function Settings(e){
+            var settings = document.getElementById('settings');
+            if(settings.style.display == 'none' || settings.style.display =='')
+            {
+                e.style.transform = 'rotate(20deg)';
+                settings.style.display ='block';
+            }
+            else
+            {
+                e.style.transform = 'rotate(-20deg)';
+                settings.style.display = 'none';
+            }
+        }
+
+
+
+    </script>
+        
+    <script>
+        //Text to Speech
+        let synth = window.speechSynthesis;
+        var speak_button = document.getElementById("speak");
+        var delete_button = document.getElementById("delete");
+        var stop_audio = document.getElementById("stop-audio");
+        var rate = document.getElementById("rate");
+        var pitch = document.getElementById("pitch");
+        var voice_option = document.getElementById("voiceSelect");
+
+
+        rate.addEventListener("change", function(){
+            document.getElementById("rate-value").innerHTML = rate.value;
+        });
+
+        //Start Speech
+        speak_button.addEventListener("click", () =>{
+            
+            const utterance = new SpeechSynthesisUtterance(document.getElementById("interpreted-text").value);
+            utterance.rate = rate.value;
+            const voices = speechSynthesis.getVoices();
+
+            utterance.voice = voices[voice_option.selectedIndex];
+
+            stop_audio.style.display = "inline";
+            synth.speak(utterance);
+            const interval = setInterval(() => {
+                speak_button.innerHTML = '<i class="fa-solid fa-play fa-fade"></i>&nbsp;&nbsp;Playin...';
+
+                if (!synth.speaking) {
+                  clearInterval(interval);
+                  speak_button.innerHTML = '<i class="fa-solid fa-play"></i>&nbsp;&nbsp;Play';
+                  stop_audio.style.display = "none";
+
+                }
+              }, 100); 
+
+        });
+
+        //End Speech
+        stop_audio.addEventListener("click", () =>{
+            synth.cancel();
+        });
+
+        //Get available voices
+        function populateVoiceList() {
+            if (typeof speechSynthesis === "undefined") {
+              return;
+            }
+          
+            const voices = speechSynthesis.getVoices();
+
+          
+            for (let i = 0; i < voices.length; i++) {
+              const option = document.createElement("option");
+              option.textContent = `${voices[i].name} (${voices[i].lang})`;
+          
+              if (voices[i].default) {
+                option.textContent += " — DEFAULT";
+              }
+
+          
+              option.setAttribute("data-lang", voices[i].lang);
+              option.setAttribute("data-name", i);
+              document.getElementById("voiceSelect").appendChild(option);
+            }
+          }
+          
+          populateVoiceList();
+          if (
+            typeof speechSynthesis !== "undefined" &&
+            speechSynthesis.onvoiceschanged !== undefined
+          ) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+          }
+          
+
+        //Delete the text in the console window
+        function DeleteText()
+        {
+            document.getElementById("interpreted-text").value='';
+        }
+
+        //Toggle the Backend OpenCV view
+        function ShowBackend(){
+            var preview = document.getElementById("preview-container");
+
+            if(preview.style.display == '' || preview.style.display =='none') {
+                preview.style.display="block";
+                speak_button.scrollIntoView();
+            }
+            else
+            {
+                preview.style.display="none";
+            }
+        }
+
+       
+
+    </script>
+
+
+    
+
+    {% endblock %}
+
+
