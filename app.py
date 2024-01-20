@@ -46,6 +46,9 @@ def image(data_image):
     # Emit the frame data back to JavaScript client
     socketio.emit('processed_frame', info)
     
+@app.route('/')
+def home():
+    return render_template('main.html')
 
 @app.route('/stv', methods=['POST', 'GET'])
 def detect():
@@ -55,7 +58,7 @@ def detect():
 def about():
     return render_template('about.html')
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/vts', methods=['POST', 'GET'])
 def landing():
     return render_template('landing.html')
 
