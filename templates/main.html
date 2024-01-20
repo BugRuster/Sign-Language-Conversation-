@@ -28,14 +28,9 @@
             <li><a href="#section3">How it works?</a></li>
           </ul>
         </li>
-        <li><a href="#section4" id="contactLink">Contact</a></li>
+        <li><a href="{{url_for('team')}}" id="contactLink">Contact</a></li>
 <!-- Add this script after the inclusion of Bootstrap and other scripts -->
-<script>
-  document.getElementById('contactLink').addEventListener('click', function() {
-    // Open a new HTML file or navigate to a different page when the contact link is clicked
-    window.location.href = 'contact/contact1.html';
-  });
-</script>
+
         <li><a href="#section6" id="loginLink">Login</a></li>
         <script>
           document.getElementById('loginLink').addEventListener('click', function() {
@@ -45,6 +40,9 @@
         </script>
         
         <li><a href="#section6" id="registerLink">Register</a></li>
+        <button id='loginButton' onclick="" class="mx-auto rounded-md p-2 bg-purple-500 text-white">
+          Login with MetaMask
+        </button>
         <!-- Add this script after the previous script -->
 <script>
   document.getElementById('registerLink').addEventListener('click', function() {
@@ -193,6 +191,55 @@
   <script src="{{ url_for('static', filename='assets/js/slick-slider.js') }}"></script>
   <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
     <script>
+       window.userWalletAddress = null
+    const loginButton = document.getElementById('loginButton')
+    const userWallet = document.getElementById('userWallet')
+
+    function toggleButton() {
+      if (!window.ethereum) {
+        loginButton.innerText = 'MetaMask is not installed'
+        loginButton.classList.remove('bg-purple-500', 'text-white')
+        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed')
+        return false
+      }
+
+      loginButton.addEventListener('click', loginWithMetaMask)
+    }
+
+    async function loginWithMetaMask() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+          console.error(e.message)
+          return
+        })
+      if (!accounts) { return }
+
+      loginButton.innerText = accounts[0];
+
+      window.userWalletAddress = accounts[0]
+      userWallet.innerText = window.userWalletAddress
+      loginButton.innerText = 'Sign out of MetaMask'
+
+      loginButton.removeEventListener('click', loginWithMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', signOutOfMetaMask)
+      }, 200)
+    }
+
+    function signOutOfMetaMask() {
+      window.userWalletAddress = null
+      userWallet.innerText = ''
+      loginButton.innerText = 'Sign in with MetaMask'
+
+      loginButton.removeEventListener('click', signOutOfMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', loginWithMetaMask)
+      }, 200)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleButton()
+    });
     
         $('.nav li:first').addClass('active');
 

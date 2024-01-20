@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from flask_socketio import SocketIO
 from flask_cors import CORS
 import io
@@ -16,7 +16,6 @@ import string
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app)
-
 
 
     
@@ -54,10 +53,6 @@ def home():
 def detect():
     return render_template('index.html')
 
-@app.route('/about', methods=['POST', 'GET'])
-def about():
-    return render_template('team.html')
-
 @app.route('/chatbot')
 def chat():
     return render_template('chatbot.html')
@@ -66,6 +61,9 @@ def chat():
 def voiceover():
     return render_template('voiceover.html')
 
+@app.route('/team')
+def team():
+    return render_template('team.html')
 
 @app.route('/imggenerator')
 def imggenerator():
