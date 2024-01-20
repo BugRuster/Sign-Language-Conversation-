@@ -104,9 +104,7 @@ def process_audio():
                 if a in isl_gif:
                     return jsonify({'type': 'gif', 'value': a})
                 else:
-                    for i in range(len(a)):
-                        if a[i] in arr:
-                            return jsonify({'type': 'image', 'value': a[i]})
+                    return jsonify({'type': 'image', 'value': a})
             except:
                 pass
 
