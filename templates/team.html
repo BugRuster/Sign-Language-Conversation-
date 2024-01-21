@@ -73,6 +73,22 @@ p {
     font-size: 12px;
     margin: 7px;
 }
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 </style>
 <body>
     <div class="main-container">
@@ -80,24 +96,35 @@ p {
         <hr>
         <div class="members">
             <div class="team-member">
-                <img src="./user.png">
+                <a href="https://github.com/BugRuster/"  style="text-decoration:none" >
+                <img src="{{ url_for('static', filename='assets/images/1.jpeg') }}" alt="">
                 <h4>ANURAG SHARMA</h4>
-                <p>Web Developer</p>
+                <p >AI/ML Developer</p>
+            </a>
             </div>
             <div class="team-member">
-                <img src="./user.png">
+                <a href="https://github.com/prosascoder/"  style="text-decoration:none" >
+
+                <img src="{{ url_for('static', filename='assets/images/2.jpeg') }}" alt="">
                 <h4>ANSH SINHA</h4>
-                <p>Web Developer</p>
+                <p>Fullstack Developer</p>
+                </a>
             </div>
             <div class="team-member">
-                <img src="./user.png">
+                <a href="https://github.com/elif0luna/"  style="text-decoration:none" >
+
+                <img src="{{ url_for('static', filename='assets/images/3.jpeg') }}" alt="">
                 <h4>KOPAL JAIN</h4>
-                <p>Web Developer</p>
+                <p>Fullstack Developer</p>
+                </a>
             </div>
             <div class="team-member">
-                <img src="./user.png">
+                <a href="https://github.com/preet-taparia/"  style="text-decoration:none" >
+
+                <img src="{{ url_for('static', filename='assets/images/4.jpeg') }}" alt="">
                 <h4>PREET TAPARIA</h4>
-                <p>Web Developer</p>
+                <p>Backend Developer</p>
+                </a>
             </div>
         </div>
     </div>
